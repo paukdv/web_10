@@ -6,9 +6,7 @@
     <div class="col-md-8">
     {% for quote in quotes %}
     <div class="quote" itemscope="" itemtype="http://schema.org/CreativeWork">
-        <span class="text" itemprop="text">
-            {{quote.quote}}
-        </span>
+        <span class="text" itemprop="text">{{quote.quote}}</span>
         <span>by <small class="author" itemprop="author">{{quote.author|author}}</small>
         <a href="author/{{quote.author|author}}">(about)</a>
         </span>

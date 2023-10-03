@@ -59,5 +59,17 @@ def add_quote(request):
 
 
 def author_about(request, author_id):
-    author = get_object_or_404(Author, pk=author_id)
-    return render(request, 'quotes/about.html', {"author": author})
+    author = get_object_or_404(Author, fullname=author_id)
+    return render(request, 'quotes/author.html', {"author": author})
+
+
+def tagged_quotes(request, tag_name, page=1):
+    tags = Tag.objects.all()
+    tag = get_object_or_404(Tag, name=tag_name)
+    quotes = Quote.objects.filter(tags=tag)
+
+    per_page = 10
+    paginator = Paginator(quotes, per_page)
+    quotes_on_page = paginator.page(page)
+
+    return render(request, 'quotes/tags.html', context={'quotes': quotes_on_page, 'tags': tags})
